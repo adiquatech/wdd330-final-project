@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poultry Management - Growth</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <script type="module" src="/js/ui.mjs"></script>
+    <script type="module" src="/js/growthModule.mjs"></script>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="logo">Poultry Management</div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Dashboard</a></li>
+                <li><a href="index.html" class="active">Growth</a></li>
+                <li><a href="#">Feed</a></li>
+                <li><a href="#">Prices</a></li>
+                <li><a href="#">Log Out</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="content">
+        <header>
+            <div class="hamburger" id="hamburger">&#9776;</div>
+            <h1>Growth Monitoring</h1>
+        </header>
+        <main>
+            <div id="growthData">Growth data will appear here.</div>
+            <button onclick="growthModule.trackGrowth()">Track Growth</button>
+        </main>
+        <footer>© 2025 Poultry Management | Contact Us</footer>
+    </div>
+</body>
+</html>
