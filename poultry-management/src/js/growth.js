@@ -1,21 +1,19 @@
-// src/js/main.js
-import { initializeUI, loadDashboardData } from './dashBoard.mjs';
-import { feedModule } from './feedModule.mjs';
-// import { growthModule } from './growthModule.mjs' (commented out)
+// src/js/growth.js
+import { initializeUI } from './dashBoard.mjs';
+import { growthModule } from './growthModule.mjs';
 
 async function loadPartials() {
   try {
     const [sidebarHtml, headerHtml, footerHtml] = await Promise.all([
-      fetch('partials/sidebar.html').then(res => res.text()),
-      fetch('partials/header.html').then(res => res.text()),
-      fetch('partials/footer.html').then(res => res.text())
+      fetch('../partials/sidebar.html').then(res => res.text()),
+      fetch('../partials/header.html').then(res => res.text()),
+      fetch('../partials/footer.html').then(res => res.text())
     ]);
     document.getElementById('sidebarContainer').innerHTML = sidebarHtml;
     document.getElementById('headerContainer').innerHTML = headerHtml;
     document.getElementById('footerContainer').innerHTML = footerHtml;
     console.log('Partials loaded successfully at 10:50 AM WAT on October 08, 2025');
-    initializeUI(); // Call after partials load
-    loadDashboardData();
+    initializeUI();
   } catch (error) {
     console.error('Failed to load partials at 10:50 AM WAT on October 08, 2025:', error);
     document.getElementById('sidebarContainer').innerHTML = '<div class="sidebar">Sidebar loading failed</div>';
@@ -27,21 +25,18 @@ async function loadPartials() {
 document.addEventListener('DOMContentLoaded', () => {
   loadPartials();
 
-  const form = document.getElementById('addDataForm');
+  const form = document.getElementById('trackGrowthForm');
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = {
         count: document.getElementById('count').value,
-        eggsToday: document.getElementById('eggs').value,
-        feedConsumed: document.getElementById('feed').value,
         growthWeight: document.getElementById('weight').value
       };
-      if (feedModule && feedModule.addFeedLog) {
-        feedModule.addFeedLog(formData);
-        loadDashboardData();
+      if (growthModule && growthModule.trackGrowth) {
+        growthModule.trackGrowth(formData);
       } else {
-        console.error('feedModule or addFeedLog not available at 10:50 AM WAT on October 08, 2025');
+        console.error('growthModule or trackGrowth not available at 10:50 AM WAT on October 08, 2025');
       }
     });
   } else {
