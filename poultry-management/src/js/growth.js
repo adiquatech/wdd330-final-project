@@ -12,10 +12,10 @@ async function loadPartials() {
     document.getElementById('sidebarContainer').innerHTML = sidebarHtml;
     document.getElementById('headerContainer').innerHTML = headerHtml;
     document.getElementById('footerContainer').innerHTML = footerHtml;
-    console.log('Partials loaded successfully at 10:50 AM WAT on October 08, 2025');
+    console.log('Partials loaded successfully');
     initializeUI();
   } catch (error) {
-    console.error('Failed to load partials at 10:50 AM WAT on October 08, 2025:', error);
+    console.error('Failed to load partials:', error);
     document.getElementById('sidebarContainer').innerHTML = '<div class="sidebar">Sidebar loading failed</div>';
     document.getElementById('headerContainer').innerHTML = '<header>Header loading failed</header>';
     document.getElementById('footerContainer').innerHTML = '<footer>Footer loading failed</footer>';
@@ -36,10 +36,40 @@ document.addEventListener('DOMContentLoaded', () => {
       if (growthModule && growthModule.trackGrowth) {
         growthModule.trackGrowth(formData);
       } else {
-        console.error('growthModule or trackGrowth not available at 10:50 AM WAT on October 08, 2025');
+        console.error('growthModule or trackGrowth not available');
       }
     });
   } else {
-    console.error('Form not found at 10:50 AM WAT on October 08, 2025');
+    console.error('Form not found');
+  }
+});
+
+
+
+// In DOMContentLoaded, fetch and display API data
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadPartials();
+
+  const apiData = await growthModule.fetchChickenWeights();
+  document.getElementById('growthData').innerHTML = `
+    <p>API Data: Average chicken weight ${apiData.growthWeight}kg (${apiData.source})</p>
+  `;
+
+  const form = document.getElementById('trackGrowthForm');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = {
+        count: document.getElementById('count').value,
+        growthWeight: document.getElementById('weight').value
+      };
+      if (growthModule && growthModule.trackGrowth) {
+        growthModule.trackGrowth(formData);
+      } else {
+        console.error('growthModule or trackGrowth not available');
+      }
+    });
+  } else {
+    console.error('Form not found');
   }
 });
